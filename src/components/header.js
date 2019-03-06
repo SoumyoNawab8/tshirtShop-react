@@ -9,7 +9,7 @@ export default class Header extends Component {
         this.toggle = this.toggle.bind(this);
         this.state = {
           isOpen: false,
-          menuListings: ["Women","Men","Kids","Shoes","Brands"]
+          menuListings: ["Women","Men","Kids","Brands"]
         };
       }
       toggle() {
