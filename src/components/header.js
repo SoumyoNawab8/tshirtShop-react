@@ -9,7 +9,7 @@ export default class Header extends Component {
         this.toggle = this.toggle.bind(this);
         this.state = {
           isOpen: false,
-          menuListings: ["Women","Men","Kids","Brands"]
+          menuListings: ["Regional","Nature","Seasonal"]
         };
       }
       toggle() {
@@ -22,7 +22,6 @@ export default class Header extends Component {
           
             <Layout.Header style={{backgroundColor:'white',borderBottomStyle:'solid',borderBottomWidth:'1px'}}>
               <div style={{display:'flex'}}>
-              {/* <span style={{fontSize:'1.6em',fontWeight:'800'}}>reactmarket</span> */}
               <img src="/images/tshirtshop.png" style={{height:'4em'}} />
                 <div style={{paddingLeft:'31%'}}>
                 <ul style={{display:'inline-flex'}}>

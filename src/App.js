@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import { addMessage } from './actions/addingStuff';
 import { removeMessage } from './actions/removingStuffs';
 import Header from './components/header';
-import { Layout,Button, Row, Col, Card, Tag } from 'antd';
+import { Layout,Button, Row, Col, Card, Tag, Input } from 'antd';
 
 
 class App extends Component {
@@ -36,7 +36,7 @@ class App extends Component {
             <div style={{justifyContent:'center',marginTop:'25em',}}>
             <Row>
               <Col span={12}></Col>
-              <Col span={12}><Button size="large" type="primary">VIEW ALL</Button></Col>
+              <Col span={12}><Button className="default_button" size="large">VIEW ALL</Button></Col>
             </Row>
               
             </div>
@@ -60,9 +60,34 @@ class App extends Component {
           </Layout.Content>
 
           <Layout.Content style={{margin:'0% 3em'}}>
-            <Card title="" style={{width:'fit-content'}} cover={<img src="https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/5500121/580/387/m1/fpnw/wm0/cover-.jpg?1543990857&s=b7217e6d06210a12188c9911f5fd0fcf" alt="" />}>
-              <span>on stock</span>
-            </Card>
+            <Row>
+              <Col span={6}>
+                <Card title="" style={{width:'fit-content'}} cover={<img src="https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/5500121/580/387/m1/fpnw/wm0/cover-.jpg?1543990857&s=b7217e6d06210a12188c9911f5fd0fcf" alt="" />}>
+                  <span>on stock</span>
+                </Card>
+              </Col>
+              <Col span={16} style={{marginLeft:'2em'}}>
+                <Card title="">
+                <Row>
+                <Col span={17}>
+                <span style={{fontWeight:'700',fontSize:'2.5em',color:'deepskyblue'}}>10% Discount for your subscription</span><br/>
+                <span style={{fontSize:'1.3em',wordBreak:'break-word',fontWeight:'600',justifyContent:'center',display:'flex'}}>
+                    <p style={{width:'21em',textAlign:'center'}}>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+                  </span>
+                </Col>
+                  <Col span={2} style={{float:'right',marginRight:'6em'}}>
+                    <img style={{width:'9em'}} src="https://i.pinimg.com/originals/70/69/08/706908198bd2c43432002a567e6f229b.jpg" alt="" /><br/>
+                  </Col>
+                  
+                </Row>
+
+                  <Row>
+                    <Col span={16}><Input style={{height:'3.5em'}} onChange={(e)=>{console.log(e.target.value)}} /></Col>
+                    <Col span={4}><Button style={{height:'3.5em',fontWeight:'600',fontSize:'1em'}} type="primary">Subscribe</Button></Col>
+                  </Row>
+                </Card>
+              </Col>
+            </Row>
           </Layout.Content>
       </Layout>
       ,

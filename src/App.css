@@ -19,6 +19,16 @@
   color: white;
 }
 
+.default_button{
+    border-radius: 2em !important;
+    background: deepskyblue !important;
+    color: white !important;
+    border-color: deepskyblue !important;
+    height: 3em !important;
+    width: 10em;
+
+}
+
 .App-link {
   color: #61dafb;
 }
