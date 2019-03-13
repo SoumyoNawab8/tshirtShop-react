@@ -22,7 +22,7 @@ export default class Header extends Component {
           
             <Layout.Header style={{backgroundColor:'white',borderBottomStyle:'solid',borderBottomWidth:'1px'}}>
               <div style={{display:'flex'}}>
-              <img src="/images/tshirtshop.png" style={{height:'4em'}} />
+              <img src="/images/tshirtshop.png" style={{height:'4em'}} alt="tshirtshop" />
                 <div style={{paddingLeft:'31%'}}>
                 <ul style={{display:'inline-flex'}}>
                 {this.state.menuListings.map((item,indx)=>{

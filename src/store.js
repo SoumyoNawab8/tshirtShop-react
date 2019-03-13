@@ -1,5 +1,8 @@
 import { messageReducer } from './reducers/messageReducer';
-import {createStore} from 'redux';
+import {createStore, combineReducers} from 'redux';
+import { authenticateReducer } from './reducers/authenticateReduer';
 
 
-export const store =createStore(messageReducer);
+const rootReducers=combineReducers({messageReducer,authenticateReducer})
+
+export const store =createStore(rootReducers);

@@ -1,14 +1,23 @@
 import React, { Component } from 'react'
 import {
-    Form, Icon, Input, Button, Checkbox,
+    Form, Icon, Input, Button, Checkbox, 
   } from 'antd';
 
+import { loginUser } from './../actions/loginUser';
+import { connect } from 'react-redux';
+
 class Login extends Component {
+
+  
+    componentWillMount(){
+      document.title="LOGIN"
+    }
+    
     handleSubmit = (e) => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
           if (!err) {
-            console.log('Received values of form: ', values);
+            this.props.userLogin(values)
           }
         });
       }
@@ -19,7 +28,7 @@ class Login extends Component {
          <div style={{justifyContent:'center',display:'flex'}}>
               <Form onSubmit={this.handleSubmit} className="login-form">
             <Form.Item>
-              {getFieldDecorator('userName', {
+              {getFieldDecorator('email', {
                 rules: [{ required: true, message: 'Please input your username!' }],
               })(
                 <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
@@ -55,4 +64,18 @@ class Login extends Component {
 
 const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(Login);
 
-export default WrappedNormalLoginForm;
+const mapStateToProps=(state)=>{
+  return{
+    values:state
+  }
+}
+
+const mapDispatchToProps=(dispatch)=>{
+ return {
+   userLogin:function(values){
+    dispatch(loginUser(values));
+   }
+ }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(WrappedNormalLoginForm);
