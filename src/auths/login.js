@@ -2,9 +2,14 @@ import React, { Component } from 'react'
 import {
     Form, Icon, Input, Button, Checkbox, 
   } from 'antd';
+  import {withRouter} from 'react-router-dom';
 
 import { loginUser } from './../actions/loginUser';
 import { connect } from 'react-redux';
+import  Cookies  from 'universal-cookie';
+
+const cookies = new Cookies();
+
 
 class Login extends Component {
 
@@ -18,6 +23,12 @@ class Login extends Component {
         this.props.form.validateFields((err, values) => {
           if (!err) {
             this.props.userLogin(values)
+            if(cookies.get('token')){
+              this.props.history.push('/');
+            }
+            else{
+              console.log(cookies.get('token'))
+            }
           }
         });
       }
@@ -78,4 +89,4 @@ const mapDispatchToProps=(dispatch)=>{
  }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(WrappedNormalLoginForm);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(WrappedNormalLoginForm));
