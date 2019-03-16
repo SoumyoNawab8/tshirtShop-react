@@ -2,10 +2,27 @@ import React, { Component } from 'react'
 import Header from './components/header';
 import { Row, Col, Layout, Card, Slider } from 'antd';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 
 
  class product_lists extends Component {
+
+  constructor(props){
+    super(props);
+    this.state={
+      products:[]
+    }
+  }
+
+  componentWillMount(){
+    axios.get('http://localhost:5000/products/'+this.props.match.params.name).then(res=>{
+      console.log(res)
+      this.setState({products:res.data});
+    })
+  }
+
   render() {
+
     return (
     <Layout >
 
@@ -13,36 +30,21 @@ import { withRouter } from 'react-router-dom';
       <Layout.Content style={{marginTop:'1em'}}>
       <Row>
       <Col span={18} push={6}>
-     <div style={{display:'flex'}}>
-     <Card
+     
+     {
+       this.state.products.map(item=>{
+         return <Col className="gutter-row" span={6}>
+         <Card
           hoverable
           style={{ width: 240,marginRight:'1em' }}
-          cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
+          cover={<img alt="example" src={'http://localhost:3000/images/product_images/'+item.image} />}
         >
-        <h4>Heya</h4>
+        <h4>{item.name}</h4>
       </Card>
-      <Card
-          hoverable
-          style={{ width: 240,marginRight:'1em' }}
-          cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-        >
-        <h4>Heya</h4>
-      </Card>
-      <Card
-          hoverable
-          style={{ width: 240,marginRight:'1em' }}
-          cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-        >
-        <h4>Heya</h4>
-      </Card>
-      <Card
-          hoverable
-          style={{ width: 240 }}
-          cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-        >
-        <h4>Heya</h4>
-      </Card>
-     </div>
+      </Col>
+       })
+     }
+     
       
       </Col>
 
