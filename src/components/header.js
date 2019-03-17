@@ -1,15 +1,21 @@
 import React, { Component } from 'react'
 import { Layout,Input,Icon } from 'antd';
+import { Menu, Dropdown } from 'antd';
+import axios from 'axios';
+import { Link,withRouter } from 'react-router-dom';
 
 
-export default class Header extends Component {
+
+
+
+class Header extends Component {
     constructor(props) {
         super(props);
     
         this.toggle = this.toggle.bind(this);
         this.state = {
           isOpen: false,
-          menuListings: ["Regional","Nature","Seasonal"]
+          menuListings: []
         };
       }
       toggle() {
@@ -17,7 +23,31 @@ export default class Header extends Component {
           isOpen: !this.state.isOpen
         });
       }
+
+      componentWillMount(){
+        var self=this;
+        axios.get('http://localhost:5000/categories/by_department').then(res=>{
+          // if(res.status===200){
+            console.log(res)
+            self.setState({menuListings:res.data});
+            console.log(self.state.menuListings)
+          // }
+
+        })
+      }
+
       render() {
+
+        console.log(this.state.menuListings)
+        const menu =(category)=>(
+          <Menu style={{marginTop:'-1em'}}>
+          {category.map(item=>{
+            return <Menu.Item >
+                    <Link to={"/category/"+item.name}>{item.name}</Link>
+                  </Menu.Item>
+          })}
+          </Menu>
+        );
         return (
           
             <Layout.Header style={{backgroundColor:'white',borderBottomStyle:'solid',borderBottomWidth:'1px'}}>
@@ -26,7 +56,12 @@ export default class Header extends Component {
                 <div style={{paddingLeft:'31%'}}>
                 <ul style={{display:'inline-flex'}}>
                 {this.state.menuListings.map((item,indx)=>{
-                  return <li style={{margin:'0 1em',listStyle:'none',fontWeight:700,fontSize:'1.2em',cursor:'pointer'}} key={indx}>{item}</li>
+                  
+                  return <Dropdown  overlay={menu(item.category)}>
+                            <a style={{margin:'0 1em',color:'black',listStyle:'none',fontWeight:700,fontSize:'1.2em',cursor:'pointer'}} className="ant-dropdown-link" href="#">
+                              {item.name}
+                            </a>
+                          </Dropdown>
                 })}
                 </ul>
                 <Input.Search
@@ -44,3 +79,5 @@ export default class Header extends Component {
         );
       }
 }
+
+export default  withRouter(Header)

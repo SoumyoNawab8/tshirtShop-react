@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import Header from './components/header';
-import { Row, Col, Layout, Card, Slider } from 'antd';
+import { Row, Col, Layout, Card, Slider,Select } from 'antd';
 import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
+const Option = Select.Option;
 
  class product_lists extends Component {
 
@@ -14,11 +15,19 @@ import axios from 'axios';
     }
   }
 
-  componentWillMount(){
+  getproducts(){
     axios.get('http://localhost:5000/products/'+this.props.match.params.name).then(res=>{
       console.log(res)
       this.setState({products:res.data});
     })
+  }
+
+  componentWillMount(){
+    this.getproducts();
+  }
+
+  componentWillReceiveProps(){
+    this.getproducts()
   }
 
   render() {
@@ -33,7 +42,7 @@ import axios from 'axios';
      
      {
        this.state.products.map(item=>{
-         return <Col className="gutter-row" span={6}>
+         return <Col className="gutter-row" style={{marginTop:'0.5em'}} span={6}>
          <Card
           hoverable
           style={{ width: 240,marginRight:'1em' }}
@@ -53,8 +62,24 @@ import axios from 'axios';
         <Card style={{width:300}}>
             <label>Price Range</label>
             <Slider range defaultValue={[20, 50]} disabled={false} /><br/>
-            <label>Size</label>
-            <Slider range defaultValue={[10, 90]} disabled={false} />
+            <label>Size</label><br/>
+            <Select defaultValue="" style={{ width: 120 }} onChange={()=>{console.log()}}>
+              <Option value="">Select Size</Option>
+              <Option value="S">S</Option>
+              <Option value="M">M</Option>
+              <Option value="L">L</Option>
+              <Option value="XL">XL</Option>
+              <Option value="XXL">XXL</Option>
+            </Select><br/>
+            <label>Color</label><br/>
+            <Select defaultValue="" style={{ width: 120 }} onChange={()=>{console.log()}}>
+              <Option value="">Select Color</Option>
+              <Option style={{backgroundColor:'yellow'}} value="yellow">Yellow</Option>
+              <Option value="M">White</Option>
+              <Option value="L">L</Option>
+              <Option value="XL">XL</Option>
+              <Option value="XXL">XXL</Option>
+            </Select><br/>
         </Card>
       </Col>
 
