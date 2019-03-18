@@ -16,7 +16,7 @@ const Option = Select.Option;
   }
 
   getproducts(){
-    axios.get('http://localhost:5000/products/'+this.props.match.params.name).then(res=>{
+    axios.get('http://localhost:5001/products/'+this.props.match.params.name).then(res=>{
       console.log(res)
       this.setState({products:res.data});
     })
@@ -45,10 +45,12 @@ const Option = Select.Option;
          return <Col className="gutter-row" style={{marginTop:'0.5em'}} span={6}>
          <Card
           hoverable
-          style={{ width: 240,marginRight:'1em' }}
+          style={{ width: 240,marginRight:'1em'}}
           cover={<img alt="example" src={'http://localhost:3000/images/product_images/'+item.image} />}
         >
-        <h4>{item.name}</h4>
+        <h4>{item.name}</h4><br/>
+        <span><b>${item.price}</b></span><br/>
+        <span>Size:</span>{item.size}
       </Card>
       </Col>
        })
